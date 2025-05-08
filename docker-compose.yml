@@ -1,0 +1,43 @@
+services:
+  react-create:
+    image: node:slim
+    working_dir: /app
+    profiles: ["create"]
+    volumes:
+      - .:/app
+    ports:
+      - "5173:5173"
+    environment:
+      - APP_NAME=mi-app-react
+      - VITE_TEMPLATE=react-swc-ts
+    command: >
+      sh -c "
+        npm create vite@latest ${APP_NAME} -- --template ${VITE_TEMPLATE} && 
+        cp docker/vite.config.ts ${APP_NAME}/vite.config.ts &&
+        rm -rf ${APP_NAME}/.gitignore &&
+        mv ${APP_NAME}/README.md ${APP_NAME}/README-${APP_NAME}.md &&
+        mv ${APP_NAME}/* . &&
+        mv ${APP_NAME}/.* . 2>/dev/null || true &&
+        rm -rf ${APP_NAME}
+      "
+  react-prod:
+    build: 
+      context: .
+      target: prod
+    ports:
+      - "3000:80"
+    container_name: react_app_container
+    profiles: ["build"]
+  react-dev:
+    build: 
+      context: .
+      target: dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: sh -c "npm run dev"
+    profiles: ["dev"]
