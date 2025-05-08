@@ -1,5 +1,6 @@
 services:
   react-create:
+    user: "${UID:1000}:${GID:1000}"  # UID:GID of the host or created user
     image: node:slim
     working_dir: /app
     profiles: ["create"]

@@ -1,2 +1,4 @@
 APP_NAME=react-swc-tsc-app
 VITE_TEMPLATE=react-swc-ts
+UID=1000
+GID=1000
