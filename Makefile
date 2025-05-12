@@ -2,7 +2,7 @@
 COMPOSE=docker-compose
 PROFILE_ARG=--profile
 
-# Comandos
+# Commands
 create:
 	UID=$$(id -u) GID=$$(id -g) $(COMPOSE) $(PROFILE_ARG) create up --build
 

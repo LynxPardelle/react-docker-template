@@ -59,12 +59,12 @@ To customize the app creation process:
 2. Use `.example-env` as a reference.
 
 Example `.env`:
-```env
+`
 APP_NAME=mi-app-react
 VITE_TEMPLATE=react-swc-ts
 UID=1000
 GID=1000
-```
+`
 
 ---
 
